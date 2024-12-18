@@ -22,14 +22,14 @@ task(`set-fallback-oracle`)
       await getAaveOracle(await getAddressFromJson(network, ORACLE_ID))
     ).connect(signer);
 
-    await waitForTx(
-      await aaveOracle.setFallbackOracle(newFallbackOracleAddress)
-    );
+    // await waitForTx(
+    //   await aaveOracle.setFallbackOracle(newFallbackOracleAddress)
+    // );
 
-    const updatedFallbackOracle = await aaveOracle.getFallbackOracle();
+    // const updatedFallbackOracle = await aaveOracle.getFallbackOracle();
 
-    console.table({
-      "Fallback oracle": updatedFallbackOracle,
-      assert: updatedFallbackOracle === newFallbackOracleAddress,
-    });
+    // console.table({
+    //   "Fallback oracle": updatedFallbackOracle,
+    //   assert: updatedFallbackOracle === newFallbackOracleAddress,
+    // });
   });
