@@ -10,20 +10,20 @@ import {
   ePolygonNetwork,
 } from "./types";
 
-const {
-  version: coreVersion,
-}: {
-  version: string;
-} = require("@aave/core-v3/package.json");
-const {
-  version: peripheryVersion,
-}: {
-  _resolved: string;
-  version: string;
-} = require("@aave/periphery-v3/package.json");
+// const {
+//   version: coreVersion,
+// }: {
+//   version: string;
+// } = require("@aave/core-v3/package.json");
+// const {
+//   version: peripheryVersion,
+// }: {
+//   _resolved: string;
+//   version: string;
+// } = require("@aave/periphery-v3/package.json");
 
-export const V3_CORE_VERSION = coreVersion;
-export const V3_PERIPHERY_VERSION = peripheryVersion;
+export const V3_CORE_VERSION = "1.19.3";
+export const V3_PERIPHERY_VERSION = "2.5.2";
 
 export const PERCENTAGE_FACTOR = "10000";
 export const HALF_PERCENTAGE = "5000";

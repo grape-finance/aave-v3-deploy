@@ -80,11 +80,7 @@ export const getStableDebtToken = async (
 
 export const getERC20 = async (
   address: tEthereumAddress
-): Promise<IERC20Detailed> =>
-  getContract(
-    "@aave/core-v3/contracts/dependencies/openzeppelin/contracts/IERC20Detailed.sol:IERC20Detailed",
-    address
-  );
+): Promise<IERC20Detailed> => getContract("IERC20Detailed", address);
 
 export const getWETH = async (address: tEthereumAddress): Promise<WETH9> =>
   getContract("WETH9", address);
@@ -158,11 +154,7 @@ export const getMintableERC20 = async (
 
 export const getIErc20Detailed = async (
   address: tEthereumAddress
-): Promise<IERC20Detailed> =>
-  getContract(
-    "@aave/core-v3/contracts/dependencies/openzeppelin/contracts/IERC20Detailed.sol:IERC20Detailed",
-    address
-  );
+): Promise<IERC20Detailed> => getContract("IERC20Detailed", address);
 
 export const getAaveProtocolDataProvider = async (
   address?: tEthereumAddress

@@ -54,9 +54,7 @@ export const parseUnitsFromToken = async (
   tokenAddress: tEthereumAddress,
   amount: string
 ) => {
-  const artifact = await hre.deployments.getArtifact(
-    "@aave/core-v3/contracts/dependencies/openzeppelin/contracts/IERC20Detailed.sol:IERC20Detailed"
-  );
+  const artifact = await hre.deployments.getArtifact("IERC20Detailed");
   const token = (await hre.ethers.getContractAt(
     artifact.abi,
     tokenAddress
