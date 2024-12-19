@@ -40,12 +40,12 @@ export const CommonsConfig: ICommonConfiguration = {
       EURS: "0xb49f677943BC038e9857d61E7d053CaA2C1734C1",
     },
     [eArbitrumNetwork.arbitrumTestnet]: {
-      LINK: "0x52C9Eb2Cc68555357221CAe1e5f2dD956bC194E5",
-      USDC: "0xe020609A0C31f4F96dCBB8DF9882218952dD95c4",
-      DAI: "0xcAE7d280828cf4a0869b26341155E4E9b864C7b2",
-      WBTC: "0x0c9973e7a27d00e656B9f153348dA46CaD70d03d",
-      WETH: "0x5f0423B1a6935dc5596e7A24d98532b67A0AeFd8",
-      USDT: "0xb1Ac85E779d05C2901812d812210F6dE144b2df0",
+      LINK: "0xb1D4538B4571d411F07960EF2838Ce337FE1E80E",
+      USDC: "0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d",
+      DAI: ZERO_ADDRESS,
+      WBTC: ZERO_ADDRESS,
+      WETH: "0x980B62Da83eFf3D4576C647993b0c1D7faf17c73",
+      USDT: "0x30fA2FbE15c1EaDfbEF28C188b7B8dbd3c1Ff2eB",
       EURS: ZERO_ADDRESS,
     },
     [eEthereumNetwork.rinkeby]: {
@@ -55,6 +55,21 @@ export const CommonsConfig: ICommonConfiguration = {
       WBTC: ZERO_ADDRESS,
       WETH: ZERO_ADDRESS,
       USDT: ZERO_ADDRESS,
+      EURS: ZERO_ADDRESS,
+    },
+  },
+  PythPriceFeed: {
+    [eArbitrumNetwork.arbitrumTestnet]:
+      "0x4374e5a8b9C22271E9EB878A2AA31DE97DF15DAF",
+  },
+  PythPriceIds: {
+    [eArbitrumNetwork.arbitrumTestnet]: {
+      LINK: ZERO_ADDRESS,
+      USDC: "0xeaa020c61cc479712813461ce153894a96a6c00b21ed0cfc2798d1f9a9e9c94a",
+      DAI: ZERO_ADDRESS,
+      WBTC: ZERO_ADDRESS,
+      WETH: "0x9d4294bbcd1174d6f2003ec365831e64cc31d9f6f15a2b85399db8d5000960f6",
+      USDT: "0x2b89b9dc8fdf9f34709a5b106b472f0f39bb6ca9ce04b0fd7f2e971688e2e53b",
       EURS: ZERO_ADDRESS,
     },
   },

@@ -280,6 +280,36 @@ export const getChainlinkOracles = async (
   }, {});
 };
 
+export const getPythPriceFeed = async (
+  poolConfig: IBaseConfiguration,
+  network: eNetwork
+): Promise<tEthereumAddress> => {
+  const pythPriceFeedAddress = getParamPerNetwork<string>(
+    poolConfig.PythPriceFeed,
+    network
+  );
+  if (!pythPriceFeedAddress) {
+    throw `Missing pty price feed address for ${pythPriceFeedAddress}`;
+  }
+
+  return pythPriceFeedAddress;
+};
+
+export const getPythPriceIds = async (
+  poolConfig: IBaseConfiguration,
+  network: eNetwork
+): Promise<ITokenAddress> => {
+  const pythPriceFeedAddress = getParamPerNetwork<ITokenAddress>(
+    poolConfig.PythPriceIds,
+    network
+  );
+  if (!pythPriceFeedAddress) {
+    throw `Missing pty price feed address for ${pythPriceFeedAddress}`;
+  }
+
+  return pythPriceFeedAddress;
+};
+
 export const getTreasuryAddress = async (
   poolConfig: IBaseConfiguration,
   network: eNetwork
@@ -295,10 +325,6 @@ export const getTreasuryAddress = async (
   ) {
     return treasuryConfigAddress;
   }
-
-  console.log(
-    "[WARNING] Using latest deployed Treasury proxy instead of ReserveFactorTreasuryAddress from configuration file"
-  );
 
   const deployedTreasury = await hre.deployments.get(TREASURY_PROXY_ID);
 

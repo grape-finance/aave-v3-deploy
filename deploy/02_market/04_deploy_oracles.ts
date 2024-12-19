@@ -1,4 +1,8 @@
-import { getChainlinkOracles } from "../../helpers/market-config-helpers";
+import {
+  getChainlinkOracles,
+  getPythPriceFeed,
+  getPythPriceIds,
+} from "../../helpers/market-config-helpers";
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
 import { COMMON_DEPLOY_PARAMS } from "../../helpers/env";
@@ -25,6 +29,7 @@ const func: DeployFunction = async function ({
   deployments,
   ...hre
 }: HardhatRuntimeEnvironment) {
+  console.log("asdf");
   const { deploy } = deployments;
   const { deployer } = await getNamedAccounts();
   const poolConfig = await loadPoolConfig(MARKET_NAME as ConfigNames);
@@ -38,37 +43,45 @@ const func: DeployFunction = async function ({
     POOL_ADDRESSES_PROVIDER_ID
   );
 
+  console.log("addressesProviderAddress", addressesProviderAddress);
+
   const fallbackOracleAddress = ZERO_ADDRESS;
 
   const reserveAssets = await getReserveAddresses(poolConfig, network);
-  const chainlinkAggregators = await getChainlinkOracles(poolConfig, network);
+  const pythPriceFeed = await getPythPriceFeed(poolConfig, network);
+  // const chainlinkAggregators = await getChainlinkOracles(poolConfig, network);
+  const pythPriceIds = await getPythPriceIds(poolConfig, network);
 
   const [assets, sources] = getPairsTokenAggregator(
     reserveAssets,
-    chainlinkAggregators
+    pythPriceIds
   );
 
-  // Deploy AaveOracle
-  await deploy(ORACLE_ID, {
-    from: deployer,
-    args: [
-      addressesProviderAddress,
-      assets,
-      sources,
-      fallbackOracleAddress,
-      ZERO_ADDRESS,
-      parseUnits("1", OracleQuoteUnit),
-    ],
-    ...COMMON_DEPLOY_PARAMS,
-    contract: "AaveOracle",
-  });
+  console.log("assets", assets);
+  console.log("sources", sources);
+
+  // // Deploy AaveOracle
+  // await deploy(ORACLE_ID, {
+  //   from: deployer,
+  //   args: [
+  //     addressesProviderAddress,
+  //     pythPriceFeed,
+  //     assets,
+  //     sources,
+  //     // fallbackOracleAddress,
+  //     ZERO_ADDRESS,
+  //     parseUnits("1", OracleQuoteUnit),
+  //   ],
+  //   ...COMMON_DEPLOY_PARAMS,
+  //   contract: "AaveOracle",
+  // });
 
   return true;
 };
 
 func.id = `Oracles:${MARKET_NAME}:aave-v3-core@${V3_CORE_VERSION}`;
 
-func.tags = ["market", "oracle"];
+func.tags = ["oracle"];
 
 func.dependencies = ["before-deploy"];
 

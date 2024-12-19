@@ -18,7 +18,8 @@ export type eNetwork =
   | eFantomNetwork
   | eOptimismNetwork
   | eTenderlyNetwork
-  | eBaseNetwork;
+  | eBaseNetwork
+  | eSonicNetwork;
 
 type eTenderlyNetwork = "tenderly";
 
@@ -48,6 +49,11 @@ export enum eEthereumNetwork {
 export enum eBaseNetwork {
   base = "base",
   baseGoerli = "base-goerli",
+}
+
+export enum eSonicNetwork {
+  sonic = "sonic",
+  sonicTestnet = "sonic-testnet",
 }
 
 export enum ePolygonNetwork {
@@ -518,6 +524,8 @@ export interface IBaseConfiguration {
   ProviderRegistryOwner?: iParamsPerNetwork<tEthereumAddress | undefined>;
   FallbackOracle?: iParamsPerNetwork<tEthereumAddress>;
   ChainlinkAggregator: iParamsPerNetwork<ITokenAddress>;
+  PythPriceFeed?: iParamsPerNetwork<tEthereumAddress>;
+  PythPriceIds?: iParamsPerNetwork<ITokenAddress>;
   WrappedTokenGateway?: iParamsPerNetwork<tEthereumAddress>;
   ReserveFactorTreasuryAddress: iParamsPerNetwork<tEthereumAddress>;
   StableDebtTokenImplementation?: iParamsPerNetwork<tEthereumAddress>;

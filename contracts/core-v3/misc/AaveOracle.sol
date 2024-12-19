@@ -98,16 +98,14 @@ contract AaveOracle is IAaveOracle {
         if (asset == BASE_CURRENCY) {
             return BASE_CURRENCY_UNIT;
         } else {
-            PythStructs.Price memory price = pyth.getPriceNoOlderThan(
-                feedId,
-                60
-            );
+            // Should use it for mainnet
+            // PythStructs.Price memory price = pyth.getPriceNoOlderThan(
+            //     feedId,
+            //     60
+            // );
+            PythStructs.Price memory price = pyth.getPriceUnsafe(feedId);
             require(price.price > 0, "Invalid Pyth price");
             return uint256(uint64(price.price));
-
-            // Convert Pyth price to 18 decimals
-            // uint256 adjustedDecimals = uint256(int256(18 + price.expo)); // Convert to unsigned integer
-            // return uint256(int256(price.price)) * (10 ** adjustedDecimals);
         }
     }
 
