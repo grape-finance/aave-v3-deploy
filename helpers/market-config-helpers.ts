@@ -378,7 +378,7 @@ export const getOracleByAsset = async (
     return (await hre.deployments.get(`${symbol}${TESTNET_PRICE_AGGR_PREFIX}`))
       .address;
   }
-  const oracleAddress = poolConfig.ChainlinkAggregator[network]?.[symbol];
+  const oracleAddress = poolConfig.PythPriceIds?.[network]?.[symbol];
 
   if (!oracleAddress) {
     throw `Missing oracle address for ${symbol}`;

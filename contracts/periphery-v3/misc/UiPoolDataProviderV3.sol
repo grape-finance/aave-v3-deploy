@@ -94,9 +94,10 @@ contract UiPoolDataProviderV3 is IUiPoolDataProviderV3 {
             reserveData.priceInMarketReferenceCurrency = oracle.getAssetPrice(
                 reserveData.underlyingAsset
             );
-            reserveData.priceOracle = oracle.getSourceOfAsset(
-                reserveData.underlyingAsset
-            );
+            // reserveData.priceOracle = oracle.getSourceOfAsset(
+            //     reserveData.underlyingAsset
+            // );
+            reserveData.priceOracle = address(oracle);
             reserveData.availableLiquidity = IERC20Detailed(
                 reserveData.underlyingAsset
             ).balanceOf(reserveData.aTokenAddress);
