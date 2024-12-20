@@ -64,20 +64,15 @@ export const CommonsConfig: ICommonConfiguration = {
   },
   PythPriceIds: {
     [eArbitrumNetwork.arbitrumTestnet]: {
-      LINK: ZERO_ADDRESS,
       USDC: "0xeaa020c61cc479712813461ce153894a96a6c00b21ed0cfc2798d1f9a9e9c94a",
-      DAI: ZERO_ADDRESS,
-      WBTC: ZERO_ADDRESS,
       WETH: "0x9d4294bbcd1174d6f2003ec365831e64cc31d9f6f15a2b85399db8d5000960f6",
-      USDT: "0x2b89b9dc8fdf9f34709a5b106b472f0f39bb6ca9ce04b0fd7f2e971688e2e53b",
-      EURS: ZERO_ADDRESS,
+      DAI: "0xeaa020c61cc479712813461ce153894a96a6c00b21ed0cfc2798d1f9a9e9c94a",
     },
   },
   ReserveFactorTreasuryAddress: {
     [eEthereumNetwork.kovan]: "0x464c71f6c2f760dda6093dcb91c24c39e5d6e18c",
     [eEthereumNetwork.main]: "0x464c71f6c2f760dda6093dcb91c24c39e5d6e18c",
-    [eArbitrumNetwork.arbitrumTestnet]:
-      "0xeC67987831C4278160D8e652d3edb0Fc45B3766d",
+    [eArbitrumNetwork.arbitrumTestnet]: ZERO_ADDRESS,
     [eEthereumNetwork.rinkeby]: ZERO_ADDRESS,
   },
   FallbackOracle: {
@@ -178,6 +173,9 @@ export const CommonsConfig: ICommonConfiguration = {
         },
       ],
     },
+  },
+  L2PoolEnabled: {
+    [eArbitrumNetwork.arbitrumTestnet]: true,
   },
   EModes: {
     StableEMode: {
