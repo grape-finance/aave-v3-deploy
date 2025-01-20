@@ -62,8 +62,8 @@ export const strategyAAVE: IReserveParams = {
 export const strategyWETH = {
   strategy: rateStrategyVolatileOne,
   baseLTVAsCollateral: "8000",
-  liquidationThreshold: "8250",
-  liquidationBonus: "10500",
+  liquidationThreshold: "8500",
+  liquidationBonus: "11000",
   liquidationProtocolFee: "1000",
   borrowingEnabled: true,
   stableBorrowRateEnabled: true,
@@ -71,8 +71,8 @@ export const strategyWETH = {
   reserveDecimals: "18",
   aTokenImpl: eContractid.AToken,
   reserveFactor: "1000",
-  supplyCap: "0",
-  borrowCap: "0",
+  supplyCap: "20000",
+  borrowCap: "16000",
   debtCeiling: "0",
   borrowableIsolation: false,
 };
@@ -114,9 +114,9 @@ export const strategyWBTC: IReserveParams = {
 };
 export const strategyUSDT = {
   strategy: rateStrategyStableOne,
-  baseLTVAsCollateral: "7500",
-  liquidationThreshold: "8000",
-  liquidationBonus: "10500",
+  baseLTVAsCollateral: "8000",
+  liquidationThreshold: "8500",
+  liquidationBonus: "11000",
   liquidationProtocolFee: "1000",
   borrowingEnabled: true,
   stableBorrowRateEnabled: true,
@@ -124,11 +124,48 @@ export const strategyUSDT = {
   reserveDecimals: "6",
   aTokenImpl: eContractid.AToken,
   reserveFactor: "1000",
-  supplyCap: "0",
-  borrowCap: "0",
-  debtCeiling: "1000000",
+  supplyCap: "10000000",
+  borrowCap: "8000000",
+  debtCeiling: "0",
   borrowableIsolation: true,
 };
+
+export const strategyFavorETH = {
+  strategy: rateStrategyVolatileOne,
+  baseLTVAsCollateral: "8000",
+  liquidationThreshold: "8500",
+  liquidationBonus: "11000",
+  liquidationProtocolFee: "1000",
+  borrowingEnabled: true,
+  stableBorrowRateEnabled: true,
+  flashLoanEnabled: true,
+  reserveDecimals: "18",
+  aTokenImpl: eContractid.AToken,
+  reserveFactor: "1000",
+  supplyCap: "0",
+  borrowCap: "0",
+  debtCeiling: "0",
+  borrowableIsolation: false,
+};
+
+export const strategyFavorUSDT = {
+  strategy: rateStrategyVolatileOne,
+  baseLTVAsCollateral: "8000",
+  liquidationThreshold: "8500",
+  liquidationBonus: "11000",
+  liquidationProtocolFee: "1000",
+  borrowingEnabled: true,
+  stableBorrowRateEnabled: true,
+  flashLoanEnabled: true,
+  reserveDecimals: "18",
+  aTokenImpl: eContractid.AToken,
+  reserveFactor: "1000",
+  supplyCap: "0",
+  borrowCap: "0",
+  debtCeiling: "0",
+  borrowableIsolation: false,
+};
+
 export const strategyEURS = {
   strategy: rateStrategyStableOne,
   baseLTVAsCollateral: "8000",
