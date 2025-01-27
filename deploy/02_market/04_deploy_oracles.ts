@@ -6,11 +6,18 @@ import {
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
 import { COMMON_DEPLOY_PARAMS } from "../../helpers/env";
-import { V3_CORE_VERSION, ZERO_ADDRESS } from "../../helpers/constants";
+import {
+  UNISWAP_ROUTER_PER_NETWORK,
+  V3_CORE_VERSION,
+  ZERO_ADDRESS,
+} from "../../helpers/constants";
 import {
   FALLBACK_ORACLE_ID,
+  FAVOR_ETH_ID,
+  FAVOR_USDT_ID,
   ORACLE_ID,
   POOL_ADDRESSES_PROVIDER_ID,
+  TWAP_ORACLE_ID,
 } from "../../helpers/deploy-ids";
 import {
   loadPoolConfig,
@@ -23,6 +30,7 @@ import { eNetwork, ICommonConfiguration, SymbolMap } from "../../helpers/types";
 import { getPairsTokenAggregator } from "../../helpers/init-helpers";
 import { parseUnits } from "ethers/lib/utils";
 import { MARKET_NAME } from "../../helpers/env";
+import { ethers } from "hardhat";
 
 const func: DeployFunction = async function ({
   getNamedAccounts,
@@ -55,7 +63,7 @@ const func: DeployFunction = async function ({
   );
 
   // Deploy AaveOracle
-  await deploy(ORACLE_ID, {
+  const aaveOracle = await deploy(ORACLE_ID, {
     from: deployer,
     args: [
       addressesProviderAddress,
@@ -70,6 +78,27 @@ const func: DeployFunction = async function ({
     contract: "AaveOracle",
   });
 
+  // Deploy TWAPOracle
+  const twapOracle = await deploy(TWAP_ORACLE_ID, {
+    from: deployer,
+    args: [aaveOracle.address],
+    log: true,
+    contract: "TwapOracle",
+  });
+
+  // Set TWAPOracle for AaveOracle
+  const aaveOracleContract = await ethers.getContractAt(
+    "AaveOracle",
+    aaveOracle.address
+  );
+  await aaveOracleContract.setTwapOracle(twapOracle.address);
+
+  const favorETHLP = await deployments.get(FAVOR_ETH_ID);
+  // const favorUSDTLP = await deployments.get(FAVOR_USDT_ID);
+  const lpTokens = [favorETHLP.address];
+
+  await aaveOracleContract.setTwapAssets(lpTokens, [true]);
+
   return true;
 };
 
@@ -77,7 +106,7 @@ func.id = `Oracles:${MARKET_NAME}:aave-v3-core@${V3_CORE_VERSION}`;
 
 func.tags = ["market", "oracle"];
 
-func.dependencies = ["before-deploy"];
+func.dependencies = ["before-deploy", "favor-tokens"];
 
 func.skip = async () => checkRequiredEnvironment();
 

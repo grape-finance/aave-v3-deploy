@@ -21,6 +21,7 @@ export const INCENTIVES_V2_IMPL_ID = `IncentivesV2-${IMPL_ID}`;
 export const INCENTIVES_PULL_REWARDS_STRATEGY_ID = `PullRewardsTransferStrategy`;
 export const INCENTIVES_STAKED_TOKEN_STRATEGY_ID = `StakedTokenTransferStrategy`;
 export const ORACLE_ID = `AaveOracle-${MARKET_NAME}`;
+export const TWAP_ORACLE_ID = `TWAPOracle-${MARKET_NAME}`;
 export const FALLBACK_ORACLE_ID = `FallbackOracle-${MARKET_NAME}`;
 export const TREASURY_PROXY_ID = "TreasuryProxy";
 export const TREASURY_IMPL_ID = `Treasury-${IMPL_ID}`;
@@ -39,3 +40,6 @@ export const STAKE_AAVE_IMPL_V2 = `StakeAave-REV-2-${IMPL_ID}`;
 export const STAKE_AAVE_IMPL_V3 = `StakeAave-REV-3-${IMPL_ID}`;
 export const L2_ENCODER = "L2Encoder";
 export const FAUCET_OWNABLE_ID = `Faucet-${MARKET_NAME}`;
+
+export const FAVOR_ETH_ID = `FavorETH-${MARKET_NAME}`;
+export const FAVOR_USDT_ID = `FavorUSDT-${MARKET_NAME}`;

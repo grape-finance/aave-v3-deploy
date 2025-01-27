@@ -24,6 +24,12 @@ contract AaveOracle is IAaveOracle {
     address public immutable override BASE_CURRENCY;
     uint256 public immutable override BASE_CURRENCY_UNIT;
 
+    // Add Twap Oracle
+    IPriceOracleGetter public TWAP_ORACLE;
+
+    // Map to track which assets use Twap Oracle
+    mapping(address => bool) public isTwapAsset;
+
     /**
      * @dev Only asset listing or pool admin can call functions marked by this modifier.
      */
@@ -89,24 +95,53 @@ contract AaveOracle is IAaveOracle {
         }
     }
 
+    /**
+     * @notice Sets the Twap Oracle
+     * @param _TwapOracleAddress The address of the Twap Oracle
+     */
+    function setTwapOracle(
+        address _TwapOracleAddress
+    ) external onlyAssetListingOrPoolAdmins {
+        TWAP_ORACLE = IPriceOracleGetter(_TwapOracleAddress);
+    }
+
+    /**
+     * @notice Sets assets to use Twap Oracle
+     * @param assets The addresses of the assets
+     * @param useTwap Boolean array indicating whether each asset uses Twap
+     */
+    function setTwapAssets(
+        address[] calldata assets,
+        bool[] calldata useTwap
+    ) external onlyAssetListingOrPoolAdmins {
+        require(
+            assets.length == useTwap.length,
+            Errors.INCONSISTENT_PARAMS_LENGTH
+        );
+        for (uint256 i = 0; i < assets.length; i++) {
+            isTwapAsset[assets[i]] = useTwap[i];
+            emit TwapAssetUpdated(assets[i], useTwap[i]);
+        }
+    }
+
     /// @inheritdoc IPriceOracleGetter
     function getAssetPrice(
         address asset
     ) public view override returns (uint256) {
-        bytes32 feedId = priceFeedIds[asset];
-
         if (asset == BASE_CURRENCY) {
             return BASE_CURRENCY_UNIT;
-        } else {
-            // Should use it for mainnet
-            // PythStructs.Price memory price = pyth.getPriceNoOlderThan(
-            //     feedId,
-            //     60
-            // );
-            PythStructs.Price memory price = pyth.getPriceUnsafe(feedId);
-            require(price.price > 0, "Invalid Pyth price");
-            return uint256(uint64(price.price));
         }
+
+        // Use Twap Oracle for LP tokens
+        if (isTwapAsset[asset]) {
+            return TWAP_ORACLE.getAssetPrice(asset);
+        }
+
+        // Use Pyth for other assets
+        bytes32 feedId = priceFeedIds[asset];
+        PythStructs.Price memory price = pyth.getPriceUnsafe(feedId);
+        require(price.price > 0, "Invalid Pyth price");
+        return uint256(uint64(price.price));
     }
 
     /// @inheritdoc IAaveOracle
@@ -137,4 +172,7 @@ contract AaveOracle is IAaveOracle {
             Errors.CALLER_NOT_ASSET_LISTING_OR_POOL_ADMIN
         );
     }
+
+    // Add event for Twap asset updates
+    event TwapAssetUpdated(address indexed asset, bool useTwap);
 }

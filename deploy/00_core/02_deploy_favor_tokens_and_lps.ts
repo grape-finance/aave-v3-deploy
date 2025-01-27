@@ -4,9 +4,12 @@ import { DeployFunction } from "hardhat-deploy/types";
 import {
   ConfigNames,
   eNetwork,
+  FAVOR_ETH_ID,
+  FAVOR_USDT_ID,
   getReserveAddresses,
   loadPoolConfig,
   UNISWAP_ROUTER_PER_NETWORK,
+  V3_CORE_VERSION,
 } from "../../helpers";
 import { MARKET_NAME } from "../../helpers/env";
 
@@ -28,18 +31,20 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   console.log("Deploying FavorTokens and creating LPs with account:", deployer);
 
   // Deploy FAVOR ETH
-  const favorETH = await deploy("FavorETH", {
+  const favorETH = await deploy(FAVOR_ETH_ID, {
     from: deployer,
     args: [ethers.utils.parseEther("100"), deployer],
     log: true,
+    contract: "FavorETH",
   });
   console.log("FavorETH deployed to:", favorETH.address);
 
   // // Deploy FAVOR USDT
-  // const favorUSDT = await deploy("FavorUSDT", {
+  // const favorUSDT = await deploy(FAVOR_USDT_ID, {
   //   from: deployer,
   //   args: [ethers.utils.parseUnits("100000000", 6), deployer],
   //   log: true,
+  //   contract: "FavorUSDT",
   // });
   // console.log("FavorUSDT deployed to:", favorUSDT.address);
 
@@ -138,7 +143,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   // await (await favorUSDTContract.setMarketPair(FavorUSDTPairAddress)).wait();
 };
 
-func.id = `InitializeFavorTokens`;
+func.id = `FavorTokens:${MARKET_NAME}:aave-v3-core@${V3_CORE_VERSION}`;
 
 func.tags = ["core", "favor"];
 
