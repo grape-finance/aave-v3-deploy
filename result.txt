@@ -65,3 +65,6 @@ Mintable Reserves and Rewards
 │ USDC-TestnetMintableERC20-Test │ '0xE7C6103D557bc211152950e9dA679857907De3A2' │
 │ WETH-TestnetMintableERC20-Test │ '0xA77DD779a4cfc9a3FAB9973c54A2A3735DaFb54a' │
 └────────────────────────────────┴──────────────────────────────────────────────┘
+
+
+Favor ETH / ETH LP : 0x0087AA5ff3e16449216967D1640F181f3E4BddBA

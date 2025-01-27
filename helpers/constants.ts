@@ -48,6 +48,19 @@ export const WRAPPED_NATIVE_TOKEN_PER_NETWORK: { [network: string]: string } = {
   [ePolygonNetwork.polygon]: "0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270",
 };
 
+export const UNISWAP_ROUTER_PER_NETWORK: { [network: string]: string } = {
+  [eEthereumNetwork.kovan]: ZERO_ADDRESS,
+  [eEthereumNetwork.main]: ZERO_ADDRESS,
+  [eArbitrumNetwork.arbitrum]: ZERO_ADDRESS,
+  [eArbitrumNetwork.arbitrumTestnet]:
+    "0x41d5f321c102f29e3a43f6c8ac9be3b3d3077fce",
+  [eOptimismNetwork.main]: ZERO_ADDRESS,
+  [eAvalancheNetwork.avalanche]: ZERO_ADDRESS,
+  [eFantomNetwork.main]: ZERO_ADDRESS,
+  [eHarmonyNetwork.main]: ZERO_ADDRESS,
+  [ePolygonNetwork.polygon]: ZERO_ADDRESS,
+};
+
 export const ZERO_BYTES_32 =
   "0x0000000000000000000000000000000000000000000000000000000000000000";
 

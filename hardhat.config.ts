@@ -54,6 +54,12 @@ export default {
           optimizer: { enabled: true, runs: 100_000 },
         },
       },
+      {
+        version: "0.6.2",
+        settings: {
+          optimizer: { enabled: true, runs: 100_000 },
+        },
+      },
     ],
   },
   typechain: {
